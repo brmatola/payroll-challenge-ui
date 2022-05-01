@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import type { NextPage } from 'next'
 import { Employees } from '../api/Employees'
-import EmployeeList from '../components/EmployeeList'
+import EmployeeList from '../components/PersonList'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 

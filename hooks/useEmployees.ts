@@ -9,10 +9,22 @@ export default function useEmployees(employeeClient: Employees) {
       return resp.data
   }
   const {
-    data: employees
+    data: employees,
+    setData: setEmployees
   } = useFetch(getData, [], [])
+
 
   if (!employees) throw new Error()
 
-  return employees
+  const addEmployee = async (name: string) => {
+    const resp = await employeeClient.employeesCreate({ name })
+    if (!resp.ok) throw new Error(`received ${resp.status} ${resp.statusText} from employee creat`)
+
+    setEmployees([...employees, resp.data])
+  }
+
+  return {
+    employees,
+    addEmployee
+  }
 }

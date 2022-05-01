@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 export default function useFetch<TData>(
     getData: () => Promise<TData>,
+    dependencies: any[] = [],
     initialValue?: TData
 ) {
     const [data, setData] = useState<TData | undefined>(initialValue)
@@ -22,11 +23,12 @@ export default function useFetch<TData>(
         }
 
         doFetch()
-    }, [])
+    }, dependencies)
 
     return {
         data,
         isLoading,
-        error
+        error,
+        setData
     }
 }
