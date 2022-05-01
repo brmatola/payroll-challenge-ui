@@ -3,6 +3,7 @@ import { Dependents } from "../../api/Dependents";
 import { Employees } from "../../api/Employees"
 import styles from '../../styles/Home.module.css'
 import { useRouter } from 'next/router'
+import useEmployeeDetails from "../../hooks/useEmployeeDetails";
 
 
 type EmployeeDetailProps = {
@@ -10,15 +11,24 @@ type EmployeeDetailProps = {
     dependentClient: Dependents;
 }
 
+const useEmployeeId = () => {
+    const router = useRouter()
+    const { employeeId } = router.query
+
+    if (typeof employeeId !== 'string') throw new Error('employee Id should be a string')
+
+    return employeeId
+}
+
 export default function EmployeeDetails({
     employeeClient,
     dependentClient
 }: EmployeeDetailProps) {
-    const router = useRouter()
-    const { employeeId } = router.query
+    const employeeId = useEmployeeId()
+    const { employeeDetails, isLoading } = useEmployeeDetails(employeeClient, employeeId)
     return (
         <main className={styles.main}>
-            <Typography variant="h1">{employeeId}</Typography>
+            <Typography variant="h1">{employeeDetails?.name}</Typography>
         </main>
     )
 }
