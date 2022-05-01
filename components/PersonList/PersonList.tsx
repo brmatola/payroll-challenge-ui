@@ -1,29 +1,28 @@
 import { List } from "@mui/material"
-import useEmployees from "../../hooks/useEmployees";
-import { Employees } from "../../api/Employees";
 import PersonItem from "./PersonItem";
 import AddItem from "./AddItem";
 
 type PersonListProps = {
-    employeeClient: Employees;
+    people: { id?: string; name?: string | null | undefined; }[]
+    addPerson: (name: string) => void;
+    deletePerson: (id?: string) => void;
     onClickDetails: (id?: string) => void;
 }
 
-export default function PersonList({ employeeClient, onClickDetails }: PersonListProps) {
-    const {employees, addEmployee, deleteEmployee} = useEmployees(employeeClient)
+export default function PersonList({ people, addPerson, deletePerson, onClickDetails }: PersonListProps) {
     return (
         <List sx={{width: '60%'}}>
-            {employees.map(employee => {
+            {people.map(employee => {
                 return (
                     <PersonItem
                         key={employee.id}
                         employee={employee} 
                         onClickDetails={onClickDetails}
-                        onClickDelete={deleteEmployee} />
+                        onClickDelete={deletePerson} />
                 )
                 
             })}
-            <AddItem onAdd={addEmployee} />
+            <AddItem onAdd={addPerson} />
         </List>
             
     )

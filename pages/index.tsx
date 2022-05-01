@@ -4,6 +4,7 @@ import { Employees } from '../api/Employees'
 import EmployeeList from '../components/PersonList'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
+import useEmployees from '../hooks/useEmployees'
 
 type HomeProps = {
   employeeClient: Employees
@@ -18,11 +19,14 @@ const router = useRouter()
 
 const Home: NextPage<HomeProps> = ({ employeeClient }: HomeProps) => {
   const onClickDetails = useNavigation()
+  const { employees, addEmployee, deleteEmployee } = useEmployees(employeeClient)
   return (
     <main className={styles.main}>
         <Typography variant='h1'>Employee Manager</Typography>
-        <EmployeeList 
-          employeeClient={employeeClient} 
+        <EmployeeList
+          people={employees}
+          addPerson={addEmployee}
+          deletePerson={deleteEmployee}
           onClickDetails={onClickDetails}
         />
     </main>

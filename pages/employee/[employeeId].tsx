@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import useEmployeeDetails from "../../hooks/useEmployeeDetails";
 import TitleCard from "../../components/TitleCard";
 import PersonList from "../../components/PersonList";
+import useEmployees from "../../hooks/useEmployees";
 
 
 type EmployeeDetailProps = {
@@ -27,6 +28,7 @@ export default function EmployeeDetails({
     dependentClient
 }: EmployeeDetailProps) {
     const employeeId = useEmployeeId()
+    const { employees, addEmployee, deleteEmployee} = useEmployees(employeeClient)
     const { employeeDetails, isLoading } = useEmployeeDetails(employeeClient, employeeId)
     return (
         <main className={styles.main}>
@@ -35,7 +37,12 @@ export default function EmployeeDetails({
                 <Grid item xs={6}>
                     <Paper sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                         <Typography variant="h2">Dependents</Typography>
-                        <PersonList employeeClient={employeeClient} onClickDetails={() => {}}/>
+                        <PersonList
+                            people={employees}
+                            addPerson={addEmployee}
+                            deletePerson={deleteEmployee}
+                            onClickDetails={() => {}}
+                            />
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
