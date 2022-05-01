@@ -7,6 +7,7 @@ import useEmployeeDetails from "../../hooks/useEmployeeDetails";
 import TitleCard from "../../components/TitleCard";
 import PersonList from "../../components/PersonList";
 import useEmployees from "../../hooks/useEmployees";
+import useDependents from "../../hooks/useDependents";
 
 
 type EmployeeDetailProps = {
@@ -28,7 +29,7 @@ export default function EmployeeDetails({
     dependentClient
 }: EmployeeDetailProps) {
     const employeeId = useEmployeeId()
-    const { employees, addEmployee, deleteEmployee} = useEmployees(employeeClient)
+    const { dependents, addDependent, deleteDependent } = useDependents(employeeClient, dependentClient, employeeId)
     const { employeeDetails, isLoading } = useEmployeeDetails(employeeClient, employeeId)
     return (
         <main className={styles.main}>
@@ -38,9 +39,9 @@ export default function EmployeeDetails({
                     <Paper sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                         <Typography variant="h2">Dependents</Typography>
                         <PersonList
-                            people={employees}
-                            addPerson={addEmployee}
-                            deletePerson={deleteEmployee}
+                            people={dependents}
+                            addPerson={addDependent}
+                            deletePerson={deleteDependent}
                             onClickDetails={() => {}}
                             />
                     </Paper>
