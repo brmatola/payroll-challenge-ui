@@ -23,8 +23,19 @@ export default function useEmployees(employeeClient: Employees) {
     setEmployees([...employees, resp.data])
   }
 
+  const deleteEmployee = async (id?: string) => {
+    if (!id) throw new Error()
+    const resp = await employeeClient.employeesDelete(id)
+    if (!resp.ok) throw new Error(`received ${resp.status} ${resp.statusText} from employee delete`)
+
+    const index = employees.findIndex(x => x.id === id)
+    employees.splice(index, 1)
+    setEmployees([...employees])
+  }
+
   return {
     employees,
-    addEmployee
+    addEmployee,
+    deleteEmployee
   }
 }

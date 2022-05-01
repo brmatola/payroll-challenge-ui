@@ -21,7 +21,10 @@ const Home: NextPage<HomeProps> = ({ employeeClient }: HomeProps) => {
   return (
     <main className={styles.main}>
         <Typography variant='h1'>Employee Manager</Typography>
-        <EmployeeList employeeClient={employeeClient} onClickDetails={onClickDetails} />
+        <EmployeeList 
+          employeeClient={employeeClient} 
+          onClickDetails={onClickDetails}
+        />
     </main>
   )
 }

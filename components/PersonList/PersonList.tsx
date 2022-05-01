@@ -10,12 +10,17 @@ type EmployeeListProps = {
 }
 
 export default function EmployeeList({ employeeClient, onClickDetails }: EmployeeListProps) {
-    const {employees, addEmployee} = useEmployees(employeeClient)
+    const {employees, addEmployee, deleteEmployee} = useEmployees(employeeClient)
     return (
         <List sx={{width: '60%'}}>
             {employees.map(employee => {
-                const onClickEmployeeDetails = () => onClickDetails(employee.id)
-                return <PersonItem employee={employee} onClickDetails={onClickEmployeeDetails} />
+                return (
+                    <PersonItem 
+                        employee={employee} 
+                        onClickDetails={onClickDetails}
+                        onClickDelete={deleteEmployee} />
+                )
+                
             })}
             <AddItem onAdd={addEmployee} />
         </List>
