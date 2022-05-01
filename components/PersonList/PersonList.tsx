@@ -15,7 +15,8 @@ export default function EmployeeList({ employeeClient, onClickDetails }: Employe
         <List sx={{width: '60%'}}>
             {employees.map(employee => {
                 return (
-                    <PersonItem 
+                    <PersonItem
+                        key={employee.id}
                         employee={employee} 
                         onClickDetails={onClickDetails}
                         onClickDelete={deleteEmployee} />

@@ -15,6 +15,7 @@ export default function AddItem({ onAdd }: AddItemProps) {
 
     const onAddWithName = () => {
         onAdd(name)
+        setName('')
     }
 
     return (
