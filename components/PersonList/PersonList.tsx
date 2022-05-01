@@ -4,12 +4,12 @@ import { Employees } from "../../api/Employees";
 import PersonItem from "./PersonItem";
 import AddItem from "./AddItem";
 
-type EmployeeListProps = {
+type PersonListProps = {
     employeeClient: Employees;
     onClickDetails: (id?: string) => void;
 }
 
-export default function EmployeeList({ employeeClient, onClickDetails }: EmployeeListProps) {
+export default function PersonList({ employeeClient, onClickDetails }: PersonListProps) {
     const {employees, addEmployee, deleteEmployee} = useEmployees(employeeClient)
     return (
         <List sx={{width: '60%'}}>
