@@ -8,6 +8,7 @@ import TitleCard from "../../components/TitleCard";
 import PersonList from "../../components/PersonList";
 import useEmployees from "../../hooks/useEmployees";
 import useDependents from "../../hooks/useDependents";
+import useBenefits from "../../hooks/useBenefits";
 
 
 type EmployeeDetailProps = {
@@ -30,7 +31,8 @@ export default function EmployeeDetails({
 }: EmployeeDetailProps) {
     const employeeId = useEmployeeId()
     const { dependents, addDependent, deleteDependent } = useDependents(employeeClient, dependentClient, employeeId)
-    const { employeeDetails, isLoading } = useEmployeeDetails(employeeClient, employeeId)
+    const { employeeDetails } = useEmployeeDetails(employeeClient, employeeId)
+    const { benefits, paycheck } = useBenefits(employeeClient, employeeId, dependents)
     return (
         <main className={styles.main}>
             <Typography variant="h1">{employeeDetails?.name}</Typography>
@@ -48,8 +50,8 @@ export default function EmployeeDetails({
                 </Grid>
                 <Grid item xs={6}>
                     <Stack spacing={2}>
-                        <TitleCard text="Benefit Cost: $2500" />
-                        <TitleCard text="Paycheck: $49500" />
+                        <TitleCard text={`Benefit Cost: $${benefits}`} />
+                        <TitleCard text={`Paycheck: $${paycheck}`} />
                     </Stack>
                 </Grid>
             </Grid>
