@@ -120,4 +120,18 @@ export class Employees<SecurityDataType = unknown> extends HttpClient<SecurityDa
       format: "json",
       ...params,
     });
+  /**
+   * No description
+   *
+   * @tags Employees
+   * @name PaycheckDetail
+   * @request GET:/Employees/{id}/paycheck
+   */
+  paycheckDetail = (id: string, params: RequestParams = {}) =>
+    this.request<BenefitCostResponse, any>({
+      path: `/Employees/${id}/paycheck`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 }

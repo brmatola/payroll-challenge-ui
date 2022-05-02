@@ -32,7 +32,9 @@ export default function EmployeeDetails({
     const employeeId = useEmployeeId()
     const { dependents, addDependent, deleteDependent } = useDependents(employeeClient, dependentClient, employeeId)
     const { employeeDetails } = useEmployeeDetails(employeeClient, employeeId)
-    const { benefits, paycheck } = useBenefits(employeeClient, employeeId, dependents)
+    const { benefits, paycheck, isLoading } = useBenefits(employeeClient, employeeId, dependents)
+    
+    if (isLoading) return 'loading...'
     return (
         <main className={styles.main}>
             <Typography variant="h1">{employeeDetails?.name}</Typography>

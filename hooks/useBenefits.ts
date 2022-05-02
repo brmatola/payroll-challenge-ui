@@ -7,15 +7,23 @@ export default function useBenefits(employeeClient: Employees, employeeId: strin
         const resp = await employeeClient.benefitCostDetail(employeeId)
         if (!resp.ok) throw new Error(`Received ${resp.status} ${resp.statusText} from benefit details`)
 
-        const cost = resp.data.dollarPerYear
-        return cost
+        const payResp = await employeeClient.paycheckDetail(employeeId);
+        if (!payResp.ok) throw new Error(`Received ${payResp.status} ${payResp.statusText} from benefit details`)
+
+        return {
+            benefits: resp.data.dollarPerYear,
+            paycheck: payResp.data.dollarPerYear
+        }
     }
 
-    const { data: benefits } = useFetch(getBenefits, [dependents], 0)
-    if (benefits === undefined) throw new Error('no cost returned')
+    const { data, isLoading } = useFetch(getBenefits, [dependents])
+
+    if (!isLoading && (data?.benefits === undefined || data?.paycheck === undefined))
+        throw new Error('invalid response')
 
     return {
-        benefits,
-        paycheck: 52000-benefits
+        isLoading,
+        benefits: data?.benefits,
+        paycheck: data?.paycheck
     }
 }
