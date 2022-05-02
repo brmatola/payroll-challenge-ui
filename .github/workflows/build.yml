@@ -1,0 +1,29 @@
+name: 'Build'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: 'Build'
+    env:
+      REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+      USERNAME: ${{ secrets.ACR_TOKEN_USERNAME }}
+      PASSWORD: ${{ secrets.ACR_TOKEN_PASSWORD }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Build Dockerfile
+        working-directory: ./src
+        run: docker build -f Dockerfile -t $REGISTRY/frontend .
+
+      - name: Docker login
+        run: docker login --username $USERNAME --password $PASSWORD $REGISTRY
+
+      - name: Docker push
+        run: docker push $REGISTRY/frontend
