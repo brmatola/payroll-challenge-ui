@@ -22,7 +22,7 @@ const Home: NextPage<HomeProps> = ({ employeeClient }: HomeProps) => {
   const { employees, addEmployee, deleteEmployee } = useEmployees(employeeClient)
   return (
     <main className={styles.main}>
-        <Typography variant='h1'>Employee Manager</Typography>
+        <Typography variant='h1'>Manager of Employees</Typography>
         <EmployeeList
           people={employees}
           addPerson={addEmployee}
