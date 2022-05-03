@@ -4,6 +4,8 @@ This is the frontend to an application that manages employees, their dependents,
 
 ## Development
 
+Add a `.env.local` file configuring the environment variables for your dev env.
+
 Run the development server:
 
 ```
