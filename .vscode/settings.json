@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://json.schemastore.org/github-workflow.json": "file:///Users/brmatola/source/repos/paylocity/payroll-challenge-ui/.github/workflows/build.yml"
-    }
-}
