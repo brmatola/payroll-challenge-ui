@@ -10,7 +10,8 @@ export default function useEmployees(employeeClient: Employees) {
   }
   const {
     data: employees,
-    setData: setEmployees
+    setData: setEmployees,
+    isLoading
   } = useFetch(getData, [], [])
 
   if (!employees) throw new Error()
@@ -35,6 +36,7 @@ export default function useEmployees(employeeClient: Employees) {
   return {
     employees,
     addEmployee,
-    deleteEmployee
+    deleteEmployee,
+    isLoading
   }
 }

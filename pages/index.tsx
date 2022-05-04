@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { CircularProgress, Typography } from '@mui/material'
 import type { NextPage } from 'next'
 import { Employees } from '../api/Employees'
 import EmployeeList from '../components/PersonList'
@@ -19,16 +19,19 @@ const router = useRouter()
 
 const Home: NextPage<HomeProps> = ({ employeeClient }: HomeProps) => {
   const onClickDetails = useNavigation()
-  const { employees, addEmployee, deleteEmployee } = useEmployees(employeeClient)
+  const { employees, addEmployee, deleteEmployee, isLoading } = useEmployees(employeeClient)
   return (
     <main className={styles.main}>
         <Typography variant='h1'>Manager of Employees</Typography>
-        <EmployeeList
-          people={employees}
-          addPerson={addEmployee}
-          deletePerson={deleteEmployee}
-          onClickDetails={onClickDetails}
-        />
+        {isLoading ? <CircularProgress />: (
+          <EmployeeList
+            people={employees}
+            addPerson={addEmployee}
+            deletePerson={deleteEmployee}
+            onClickDetails={onClickDetails}
+          />
+        )}
+        
     </main>
   )
 }
