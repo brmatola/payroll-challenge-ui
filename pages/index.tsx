@@ -22,8 +22,8 @@ const Home: NextPage<HomeProps> = ({ employeeClient }: HomeProps) => {
   const { employees, addEmployee, deleteEmployee, isLoading } = useEmployees(employeeClient)
   return (
     <main className={styles.main}>
-        <Typography variant='h1'>Manager of Employees</Typography>
-        {isLoading ? <CircularProgress />: (
+        <Typography variant='h1'>Employee Manager</Typography>
+        {isLoading ? <CircularProgress /> : (
           <EmployeeList
             people={employees}
             addPerson={addEmployee}
