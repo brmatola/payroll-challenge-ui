@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
 import { Dependents } from "../../api/Dependents";
 import { Employees } from "../../api/Employees"
 import styles from '../../styles/Home.module.css'
@@ -8,6 +8,7 @@ import TitleCard from "../../components/TitleCard";
 import PersonList from "../../components/PersonList";
 import useDependents from "../../hooks/useDependents";
 import useBenefits from "../../hooks/useBenefits";
+import Loading from "../../components/Loading";
 
 
 type EmployeeDetailProps = {
@@ -34,7 +35,7 @@ export default function EmployeeDetails({
     const { benefits, paycheck, isLoading: isLoadingBenefits } = useBenefits(employeeClient, employeeId, dependents)
 
     if (isLoadingDependents || isLoadingDetails || isLoadingBenefits) 
-        return <CircularProgress />
+        return <Loading />
     
     return (
         <main className={styles.main}>
