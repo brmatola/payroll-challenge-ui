@@ -13,7 +13,6 @@ export default function useEmployees(employeeClient: Employees) {
     setData: setEmployees
   } = useFetch(getData, [], [])
 
-
   if (!employees) throw new Error()
 
   const addEmployee = async (name: string) => {
