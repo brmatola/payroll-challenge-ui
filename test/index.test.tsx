@@ -6,7 +6,7 @@ describe('Employee Management', () => {
     test('displays title', async () => {
         render(<Home employeeClient={employeeClient} />)
 
-        await screen.findByText('Manager of Employees')
+        await screen.findByText('Employee Manager')
     })
 
     test('Displays employees', async () => {
