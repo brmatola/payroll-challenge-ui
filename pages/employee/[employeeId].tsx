@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import useEmployeeDetails from "../../hooks/useEmployeeDetails";
 import TitleCard from "../../components/TitleCard";
 import PersonList from "../../components/PersonList";
-import useEmployees from "../../hooks/useEmployees";
 import useDependents from "../../hooks/useDependents";
 import useBenefits from "../../hooks/useBenefits";
 
@@ -33,8 +32,8 @@ export default function EmployeeDetails({
     const { dependents, addDependent, deleteDependent } = useDependents(employeeClient, dependentClient, employeeId)
     const { employeeDetails } = useEmployeeDetails(employeeClient, employeeId)
     const { benefits, paycheck, isLoading } = useBenefits(employeeClient, employeeId, dependents)
-    
-    if (isLoading) return 'loading...'
+
+    if (isLoading) return <div>'loading...'</div>
     return (
         <main className={styles.main}>
             <Typography variant="h1">{employeeDetails?.name}</Typography>

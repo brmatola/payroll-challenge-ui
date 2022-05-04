@@ -1,7 +1,8 @@
 import server from './server'
-import { employeeClient } from './handlers'
+import { employeeClient, dependentClient } from './handlers'
 
 export {
     server,
-    employeeClient
+    employeeClient,
+    dependentClient
 }
