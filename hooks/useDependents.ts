@@ -11,7 +11,8 @@ export default function useDependents(employeeClient: Employees, dependentsClien
   }
   const {
     data: dependents,
-    setData: setDependents
+    setData: setDependents,
+    isLoading
   } = useFetch(getData, [], [])
 
 
@@ -37,6 +38,7 @@ export default function useDependents(employeeClient: Employees, dependentsClien
   return {
     dependents,
     addDependent,
-    deleteDependent
+    deleteDependent,
+    isLoading
   }
 }

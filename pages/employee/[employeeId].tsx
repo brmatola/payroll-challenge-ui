@@ -1,4 +1,4 @@
-import { Grid, Paper, Stack, Typography } from "@mui/material";
+import { CircularProgress, Grid, Paper, Stack, Typography } from "@mui/material";
 import { Dependents } from "../../api/Dependents";
 import { Employees } from "../../api/Employees"
 import styles from '../../styles/Home.module.css'
@@ -29,11 +29,13 @@ export default function EmployeeDetails({
     dependentClient
 }: EmployeeDetailProps) {
     const employeeId = useEmployeeId()
-    const { dependents, addDependent, deleteDependent } = useDependents(employeeClient, dependentClient, employeeId)
-    const { employeeDetails } = useEmployeeDetails(employeeClient, employeeId)
-    const { benefits, paycheck, isLoading } = useBenefits(employeeClient, employeeId, dependents)
+    const { dependents, addDependent, deleteDependent, isLoading: isLoadingDependents } = useDependents(employeeClient, dependentClient, employeeId)
+    const { employeeDetails, isLoading: isLoadingDetails } = useEmployeeDetails(employeeClient, employeeId)
+    const { benefits, paycheck, isLoading: isLoadingBenefits } = useBenefits(employeeClient, employeeId, dependents)
 
-    if (isLoading) return <div>'loading...'</div>
+    if (isLoadingDependents || isLoadingDetails || isLoadingBenefits) 
+        return <CircularProgress />
+    
     return (
         <main className={styles.main}>
             <Typography variant="h1">{employeeDetails?.name}</Typography>
