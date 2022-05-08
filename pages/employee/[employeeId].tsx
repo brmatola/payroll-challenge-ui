@@ -9,6 +9,9 @@ import PersonList from "../../components/PersonList";
 import useDependents from "../../hooks/useDependents";
 import useBenefits from "../../hooks/useBenefits";
 import Loading from "../../components/Loading";
+import { TimePeriod } from '../../api/data-contracts'
+import { useState } from "react";
+import PayPeriodSelector from "../../components/PayPeriodSelector";
 
 
 type EmployeeDetailProps = {
@@ -30,9 +33,10 @@ export default function EmployeeDetails({
     dependentClient
 }: EmployeeDetailProps) {
     const employeeId = useEmployeeId()
+    const [payPeriod, setPayPeriod] = useState(TimePeriod.PerYear)
     const { dependents, addDependent, deleteDependent, isLoading: isLoadingDependents } = useDependents(employeeClient, dependentClient, employeeId)
     const { employeeDetails, isLoading: isLoadingDetails } = useEmployeeDetails(employeeClient, employeeId)
-    const { benefits, paycheck, isLoading: isLoadingBenefits } = useBenefits(employeeClient, employeeId, dependents)
+    const { benefits, paycheck, isLoading: isLoadingBenefits } = useBenefits(employeeClient, employeeId, payPeriod, dependents)
 
     if (isLoadingDependents || isLoadingDetails || isLoadingBenefits) 
         return <Loading />
@@ -54,6 +58,7 @@ export default function EmployeeDetails({
                 </Grid>
                 <Grid item xs={6}>
                     <Stack spacing={2}>
+                        <PayPeriodSelector payPeriod={payPeriod} setPayPeriod={setPayPeriod} />
                         <TitleCard text={`Benefit Cost: $${benefits}`} />
                         <TitleCard text={`Paycheck: $${paycheck}`} />
                     </Stack>

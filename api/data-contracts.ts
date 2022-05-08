@@ -11,7 +11,8 @@
 
 export interface BenefitCostResponse {
   /** @format double */
-  dollarPerYear?: number;
+  amount?: number;
+  timePeriod?: TimePeriod;
 }
 
 export interface DependentViewModel {
@@ -32,4 +33,9 @@ export interface NewDependentRequest {
 
 export interface NewEmployeeRequest {
   name?: string | null;
+}
+
+export enum TimePeriod {
+  PerYear = "PerYear",
+  PerPaycheck = "PerPaycheck",
 }

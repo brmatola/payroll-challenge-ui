@@ -15,6 +15,7 @@ import {
   EmployeeViewModel,
   NewDependentRequest,
   NewEmployeeRequest,
+  TimePeriod,
 } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
@@ -113,10 +114,11 @@ export class Employees<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @name BenefitCostDetail
    * @request GET:/Employees/{id}/benefit_cost
    */
-  benefitCostDetail = (id: string, params: RequestParams = {}) =>
+  benefitCostDetail = (id: string, query?: { timePeriod?: TimePeriod }, params: RequestParams = {}) =>
     this.request<BenefitCostResponse, any>({
       path: `/Employees/${id}/benefit_cost`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
@@ -127,10 +129,11 @@ export class Employees<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @name PaycheckDetail
    * @request GET:/Employees/{id}/paycheck
    */
-  paycheckDetail = (id: string, params: RequestParams = {}) =>
+  paycheckDetail = (id: string, query?: { timePeriod?: TimePeriod }, params: RequestParams = {}) =>
     this.request<BenefitCostResponse, any>({
       path: `/Employees/${id}/paycheck`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
