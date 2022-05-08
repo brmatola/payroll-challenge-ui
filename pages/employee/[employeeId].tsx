@@ -70,7 +70,6 @@ export default function EmployeeDetails({
                             people={dependents}
                             addPerson={addDependent}
                             deletePerson={deleteDependent}
-                            onClickDetails={() => {}}
                             />
                     </Paper>
                 </Grid>

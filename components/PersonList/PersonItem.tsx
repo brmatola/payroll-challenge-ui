@@ -5,19 +5,19 @@ import PersonAvatar from "./PersonAvatar"
 
 type EmployeeItemProps = {
     employee: { id?: string; name?: string | null | undefined; }
-    onClickDetails: (id?: string) => void;
+    onClickDetails?: (id?: string) => void;
     onClickDelete: (id?: string) => void;
 }
 
 const EmployeeItem = ({ employee, onClickDetails, onClickDelete }: EmployeeItemProps) => {
-    const onClickEmployeeDetails = () => onClickDetails(employee.id)
+    const onClickEmployeeDetails = onClickDetails ? () => onClickDetails(employee.id) : undefined
     const onClickDeleteEmployee = () => onClickDelete(employee.id)
     return (
         <ListItem secondaryAction={
             <>
-                <IconButton edge="start" aria-label="details" onClick={onClickEmployeeDetails}>
+                {onClickEmployeeDetails && <IconButton edge="start" aria-label="details" onClick={onClickEmployeeDetails}>
                     <InfoIcon />
-                </IconButton>
+                </IconButton>}
                 <IconButton edge="end" aria-label="delete" onClick={onClickDeleteEmployee}>
                     <DeleteIcon />
                 </IconButton>

@@ -6,7 +6,7 @@ type PersonListProps = {
     people: { id?: string; name?: string | null | undefined; }[]
     addPerson: (name: string) => void;
     deletePerson: (id?: string) => void;
-    onClickDetails: (id?: string) => void;
+    onClickDetails?: (id?: string) => void;
 }
 
 export default function PersonList({ people, addPerson, deletePerson, onClickDetails }: PersonListProps) {
