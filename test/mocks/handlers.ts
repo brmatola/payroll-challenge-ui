@@ -15,10 +15,10 @@ export const handlers = [
         return res(ctx.json({id: '1', name: 'Brad'}))
     }),
     rest.get(`${URL}/Employees/1/benefit_cost`, (req, res, ctx) => {
-        return res(ctx.json({dollarPerYear: 1500}))
+        return res(ctx.json({amount: 1500, timePeriod: 'PerYear'}))
     }),
     rest.get(`${URL}/Employees/1/paycheck`, (req, res, ctx) => {
-        return res(ctx.json({dollarPerYear: 50500}))
+        return res(ctx.json({amount: 50500, timePeriod: 'PerYear'}))
     }),
     rest.get(`${URL}/Employees/1/dependents`, (req, res, ctx) => {
         return res(ctx.json([{id: '2', name: 'Noodle'}]))
