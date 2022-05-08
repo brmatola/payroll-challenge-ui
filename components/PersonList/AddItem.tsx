@@ -20,7 +20,7 @@ export default function AddItem({ onAdd }: AddItemProps) {
 
     return (
         <ListItem secondaryAction={
-                <IconButton edge="end" aria-label="add" onClick={onAddWithName}>
+                <IconButton edge="end" aria-label="add" onClick={onAddWithName} disabled={name === ''}>
                     <AddIcon />
                 </IconButton>
             }>
