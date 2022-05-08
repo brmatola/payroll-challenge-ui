@@ -1,4 +1,4 @@
-import { Grid, Paper, Stack, Typography } from "@mui/material";
+import { CircularProgress, Grid, Paper, Stack, Typography } from "@mui/material";
 import { Dependents } from "../../api/Dependents";
 import { Employees } from "../../api/Employees"
 import styles from '../../styles/Home.module.css'
@@ -9,7 +9,7 @@ import PersonList from "../../components/PersonList";
 import useDependents from "../../hooks/useDependents";
 import useBenefits from "../../hooks/useBenefits";
 import Loading from "../../components/Loading";
-import { TimePeriod } from '../../api/data-contracts'
+import { DependentViewModel, TimePeriod } from '../../api/data-contracts'
 import { useState } from "react";
 import PayPeriodSelector from "../../components/PayPeriodSelector";
 
@@ -28,17 +28,35 @@ const useEmployeeId = () => {
     return employeeId
 }
 
+function PaySection({employeeClient, employeeId, dependents}: {
+    employeeClient: Employees;
+    employeeId: string;
+    dependents: DependentViewModel[];
+}) {
+    const [payPeriod, setPayPeriod] = useState(TimePeriod.PerYear)
+    const { benefits, paycheck, isLoading } = useBenefits(employeeClient, employeeId, payPeriod, dependents)
+    return (
+        <Stack spacing={2}>
+            <PayPeriodSelector payPeriod={payPeriod} setPayPeriod={setPayPeriod} />
+            {isLoading ? <CircularProgress /> : (
+                <>
+                    <TitleCard text={`Benefit Cost: $${benefits}`} />
+                    <TitleCard text={`Paycheck: $${paycheck}`} />
+                </>
+            )}
+        </Stack>
+    )
+}
+
 export default function EmployeeDetails({
     employeeClient,
     dependentClient
 }: EmployeeDetailProps) {
     const employeeId = useEmployeeId()
-    const [payPeriod, setPayPeriod] = useState(TimePeriod.PerYear)
     const { dependents, addDependent, deleteDependent, isLoading: isLoadingDependents } = useDependents(employeeClient, dependentClient, employeeId)
     const { employeeDetails, isLoading: isLoadingDetails } = useEmployeeDetails(employeeClient, employeeId)
-    const { benefits, paycheck, isLoading: isLoadingBenefits } = useBenefits(employeeClient, employeeId, payPeriod, dependents)
 
-    if (isLoadingDependents || isLoadingDetails || isLoadingBenefits) 
+    if (isLoadingDependents || isLoadingDetails) 
         return <Loading />
     
     return (
@@ -57,11 +75,11 @@ export default function EmployeeDetails({
                     </Paper>
                 </Grid>
                 <Grid item xs={6}>
-                    <Stack spacing={2}>
-                        <PayPeriodSelector payPeriod={payPeriod} setPayPeriod={setPayPeriod} />
-                        <TitleCard text={`Benefit Cost: $${benefits}`} />
-                        <TitleCard text={`Paycheck: $${paycheck}`} />
-                    </Stack>
+                    <PaySection
+                        employeeId={employeeId}
+                        employeeClient={employeeClient}
+                        dependents={dependents}
+                    />
                 </Grid>
             </Grid>
         </main>
